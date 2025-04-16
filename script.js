@@ -15,6 +15,36 @@ const avatarOptions = document.getElementById("avatarOptions");
 
 const avatarChoices = ["🧠", "🌟", "🎨", "🐱", "🧘", "⚡", "🦊", "🐻", "🦄", "🐸"];
 
+function populateAvatars() {
+    avatarOptions.innerHTML = "";
+    avatarChoices.forEach(emoji => {
+      const span = document.createElement("span");
+      span.textContent = emoji;
+      span.addEventListener("click", () => {
+        avatarBtn.textContent = emoji;
+        localStorage.setItem("habitAvatar", emoji);
+        avatarModal.style.display = "none";
+      });
+      avatarOptions.appendChild(span);
+    });
+  }
+  
+  avatarBtn.addEventListener("click", () => {
+    avatarModal.style.display = "block";
+    populateAvatars();
+  });
+  
+  // Optional: click outside to close
+  window.addEventListener("click", (e) => {
+    if (e.target === avatarModal) avatarModal.style.display = "none";
+  });
+  
+  // Load saved avatar
+  const savedAvatar = localStorage.getItem("habitAvatar");
+  if (savedAvatar) {
+    avatarBtn.textContent = savedAvatar;
+  }
+
 
 
 const quotes = [
