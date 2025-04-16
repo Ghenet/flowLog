@@ -22,5 +22,52 @@
           <button id="toggle-theme">🌓 Toggle Theme</button>
         </div>
       </nav>
+      <div class="container">
+        <div class="sidebar">
+            <div class="profile-card">
+                <div class="profile-avatar" id="avatarBtn" title="Click to change avatar">🌟</div>
+                <div id="avatarPicker" class="avatar-modal">
+                    <h4>Choose your avatar</h4>
+                    <div class="avatar-grid" id="avatarOptions">
+                      <!-- emojis go here -->
+                    </div>
+                  </div>
+                  
+                <div class="profile-info">
+                  <h3 id="profileName">You</h3>
+                  <div class="xp-bar">
+                    <div id="xpProgress"></div>
+                  </div>
+                  <small>Level <span id="userLevel">1</span> • <span id="userXP">0</span> XP</small>
+                </div>
+              </div>
+              
+            <h2>📋 Menu</h2>
+          
+            <div class="collapsible">
+              <button class="collapse-toggle">Filters ▾</button>
+              <div class="sidebar-section">
+                <button onclick="filterToday()">☀️ Today</button>
+                <button onclick="filterAll()">📋 All Habits</button>
+              </div>
+            </div>
+          
+            <div class="collapsible">
+              <button class="collapse-toggle">Settings ▾</button>
+              <div class="sidebar-section">
+                <button onclick="showStats()">📊 Stats</button>
+                <button onclick="toggleTheme()">🌓 Theme</button>
+              </div>
+            </div>
+            <div class="badges-section">
+                <h4>🏅 Badges</h4>
+                <div id="badgeList"></div>
+              </div>
+              <blockquote id="quoteBox">🌞 "Keep going – you're doing great!"</blockquote>
+    
+          </div>
+          
+
+      </div>
 </body>
 </html>
