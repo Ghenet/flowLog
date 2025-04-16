@@ -298,3 +298,13 @@ html {
     from { opacity: 0; transform: translateY(5px); }
     to { opacity: 1; transform: translateY(0); }
   }
+
+  #toggle-theme {
+    background: none;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    float: right;
+  }
