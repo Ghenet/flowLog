@@ -31,4 +31,19 @@ const quotes = [
     quoteEl.textContent = quotes[dailyIndex];
   }
 
+
+  document.getElementById('toggle-theme').onclick = () => {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+  };
+  
+  function applySavedTheme() {
+    const theme = localStorage.getItem('theme');
+    if (theme === 'dark') document.body.classList.add('dark');
+  }
+  
+
+
+  
   displayQuote()
+  applySavedTheme();
