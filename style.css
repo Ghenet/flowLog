@@ -239,3 +239,9 @@ html {
     background: var(--card);
     border: 1px solid var(--border);
   }
+  #quoteBox {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: auto;
+  }
