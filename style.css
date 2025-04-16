@@ -82,3 +82,14 @@ html {
     padding: 1rem;;
     cursor: pointer;
   }
+  .container {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    gap: 2rem;
+    margin: 0;
+    padding: 2rem;
+    transition: background 0.3s, color 0.3s;
+  }
