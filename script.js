@@ -43,6 +43,14 @@ const quotes = [
   }
   
 
+  const sideQuotes = [
+    "Small steps every day 🌱",
+    "You're building momentum 💪",
+    "Progress over perfection ✨",
+    "Keep the streak alive 🔥",
+  ];
+  document.getElementById("quoteBox").textContent = "🌞 " + sideQuotes[Math.floor(Math.random() * sideQuotes.length)];
+  
 
   
   displayQuote()
