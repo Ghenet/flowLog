@@ -84,6 +84,24 @@ const quotes = [
   document.getElementById("quoteBox").textContent = "🌞 " + sideQuotes[Math.floor(Math.random() * sideQuotes.length)];
   
 
+  function populateEmojis(category) {
+    const emojiPicker = document.getElementById("emojiPicker");
+    emojiPicker.innerHTML = ""; // clear
+  
+    emojiCategories[category].forEach(emoji => {
+      const option = document.createElement("option");
+      option.value = emoji;
+      option.textContent = emoji;
+      emojiPicker.appendChild(option);
+    });
+  }
+
+  document.getElementById("categoryPicker").addEventListener("change", (e) => {
+    populateEmojis(e.target.value);
+  });
+  populateEmojis("Health"); // default load
+
+  
   function saveHabits() {
     localStorage.setItem('habits', JSON.stringify(habits));
   }
@@ -163,7 +181,7 @@ const quotes = [
         renderHabits();
         habitForm.reset();
     };
-    
+
 
     
 
