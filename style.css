@@ -362,7 +362,94 @@ html {
     background-color: #ddd;
     color: #666;
   }
+  button {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 14px;
+    margin-right: 1rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
   
+  button:hover {
+    background-color: #388e3c;
+  }
 
-
+  #emojiBtn {
+    font-size: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  #selectedEmoji {
+    font-size: 20px;
+    margin-right: 0.5rem;
+  }
+  
+  #heatmap {
+    margin-top: 2rem;
+  }
+  
+  .heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(52, 1fr);
+    gap: 2px;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .heatmap-day {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background-color: var(--border);
+    position: relative;
+  }
+  
+  
+  .heatmap-day[data-count="1"] { background-color: #c6f6d5; }
+  .heatmap-day[data-count="2"] { background-color: #9ae6b4; }
+  .heatmap-day[data-count="3"] { background-color: #68d391; }
+  .heatmap-day[data-count="4"] { background-color: #48bb78; }
+  .heatmap-day[data-count="5"] { background-color: #38a169; }
+  .heatmap-day[data-count="6"] { background-color: #2f855a; }
+  
+  .heatmap-day:hover::after {
+    content: attr(data-date) " • " attr(data-count) " habits";
+    position: absolute;
+    background: var(--card);
+    color: var(--text);
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  
+  .heatmap-legend {
+    display: flex;
+    align-items: center;
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    gap: 0.4rem;
+    justify-content: flex-start;
+  }
+  
+  .legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+  }
+  
   
