@@ -2,14 +2,11 @@ const habitForm = document.getElementById('habit-form');
 const habitInput = document.getElementById('habit-input');
 const habitList = document.getElementById('habit-list');
 
-let habits = JSON.parse(localStorage.getItem('habits')) || [];
-
 const emojiCategories = {
     Health: ["💪", "🏃", "🥗", "💧", "🛏️"],
     Productivity: ["✅", "📝", "📚", "📅", "🧠"],
     Mindfulness: ["🧘", "🌿", "🙏", "📖", "🕯️"],
   };
-
 
 const avatarBtn = document.getElementById("avatarBtn");
 const avatarModal = document.getElementById("avatarPicker");
@@ -101,7 +98,22 @@ const quotes = [
   });
   populateEmojis("Health"); // default load
 
+  function getCurrentStreak(completions) {
+    const sorted = completions.map(d => new Date(d)).sort((a, b) => b - a);
+    let streak = 0;
+    for (let i = 0; i < sorted.length; i++) {
+      const diff = (new Date().setHours(0,0,0,0) - sorted[i].setHours(0,0,0,0)) / (1000 * 60 * 60 * 24);
+      if (diff === i) streak++;
+      else break;
+    }
+    console.log(streak)
+    return streak;
+  }
   
+
+let habits = JSON.parse(localStorage.getItem('habits')) || [];
+
+
   function saveHabits() {
     localStorage.setItem('habits', JSON.stringify(habits));
   }
@@ -145,6 +157,11 @@ const quotes = [
   function renderHabits() {
     habitList.innerHTML = '';
     habits.forEach((habit, index) => {
+      // Fallback if completions doesn't exist (for old data)
+      if (!Array.isArray(habit.completions)) {
+        habit.completions = habit.lastDone ? [habit.lastDone] : [];
+      }
+
       const li = document.createElement('li');
       const container = document.createElement('div');
   
@@ -167,8 +184,17 @@ const quotes = [
       li.appendChild(container);
       li.appendChild(renderCalendar(habit.completions));
       habitList.appendChild(li);
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = '🗑️ Delete';
+      deleteBtn.onclick = () => {
+      habits.splice(index, 1);
+      saveHabits();
+      renderHabits();
+};
+container.appendChild(deleteBtn);
     });
-  }
+    };
   
     habitForm.onsubmit = (e) => {
         e.preventDefault();
