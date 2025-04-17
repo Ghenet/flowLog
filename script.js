@@ -166,7 +166,7 @@ let habits = JSON.parse(localStorage.getItem('habits')) || [];
       const container = document.createElement('div');
   
       const name = document.createElement('strong');
-      name.textContent = habit.name;
+      name.textContent = `${habit.emoji || "✅"} ${habit.name}`;
   
       const btn = document.createElement('button');
       btn.textContent = habit.completions.includes(today()) ? '✓ Done' : 'Mark Done';
@@ -198,9 +198,14 @@ container.appendChild(deleteBtn);
   
     habitForm.onsubmit = (e) => {
         e.preventDefault();
+        const emoji = document.getElementById("emojiPicker").value || "✅";
         const newHabit = {
-        name: habitInput.value.trim(),
-        completions: [],
+            name: habitInput.value.trim(),
+            emoji: emoji,
+            completions: [],
+            xp: 0,
+            level: 1,
+            badges: [],
         };
         habits.push(newHabit);
         saveHabits();
@@ -209,7 +214,17 @@ container.appendChild(deleteBtn);
     };
 
 
-    
+    function filterToday() {
+        alert("Filter to today's habits (coming soon)!");
+      }
+      
+      function filterAll() {
+        renderHabits();
+      }
+      
+      function showStats() {
+        alert("Show stats: XP, streaks, badges (coming soon)!");
+      }
 
 renderHabits();
 displayQuote();
