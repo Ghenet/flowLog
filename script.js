@@ -229,3 +229,44 @@ container.appendChild(deleteBtn);
 renderHabits();
 displayQuote();
 applySavedTheme();
+
+
+function markHabitDone(habitId) {
+    const today = new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD'
+    const log = JSON.parse(localStorage.getItem("habitLog")) || {};
+    
+    if (!log[today]) log[today] = 0;
+    log[today] += 1;
+  
+    localStorage.setItem("habitLog", JSON.stringify(log));
+  }
+function getPastYearDates() {
+    const days = [];
+    const now = new Date();
+    for (let i = 364; i >= 0; i--) {
+      const d = new Date(now);
+      d.setDate(now.getDate() - i);
+      days.push(d.toISOString().slice(0, 10));
+    }
+    return days;
+  }
+function renderHeatmap() {
+    const log = JSON.parse(localStorage.getItem("habitLog")) || {};
+    const container = document.querySelector(".heatmap-grid");
+    container.innerHTML = "";
+  
+    const dates = getPastYearDates();
+  
+    dates.forEach(date => {
+      const count = log[date] || 0;
+      const square = document.createElement("div");
+      square.className = "heatmap-day";
+      square.setAttribute("data-count", count);
+      square.setAttribute("data-date", date);
+      container.appendChild(square);
+    });
+  }
+  
+  window.onload = () => {
+    renderHeatmap();
+  };
