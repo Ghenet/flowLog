@@ -2,6 +2,8 @@ const habitForm = document.getElementById('habit-form');
 const habitInput = document.getElementById('habit-input');
 const habitList = document.getElementById('habit-list');
 
+let habits = JSON.parse(localStorage.getItem('habits')) || [];
+
 const emojiCategories = {
     Health: ["💪", "🏃", "🥗", "💧", "🛏️"],
     Productivity: ["✅", "📝", "📚", "📅", "🧠"],
@@ -82,6 +84,89 @@ const quotes = [
   document.getElementById("quoteBox").textContent = "🌞 " + sideQuotes[Math.floor(Math.random() * sideQuotes.length)];
   
 
+  function saveHabits() {
+    localStorage.setItem('habits', JSON.stringify(habits));
+  }
   
-  displayQuote()
-  applySavedTheme();
+  function today() {
+    return new Date().toISOString().split('T')[0];
+  }
+  
+  function getPast7Days() {
+    const days = [];
+    const todayDate = new Date();
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(todayDate);
+      d.setDate(todayDate.getDate() - i);
+      days.push(d.toISOString().split('T')[0]);
+    }
+    return days;
+  }
+  
+  function renderCalendar(completions) {
+    const calendar = document.createElement('div');
+    calendar.className = 'calendar';
+  
+    getPast7Days().forEach(date => {
+      const day = document.createElement('div');
+      day.className = 'calendar-day';
+      day.textContent = date.slice(5); // MM-DD
+  
+      if (completions.includes(date)) {
+        day.classList.add('done');
+      } else {
+        day.classList.add('missed');
+      }
+  
+      calendar.appendChild(day);
+    });
+  
+    return calendar;
+  }
+  
+  function renderHabits() {
+    habitList.innerHTML = '';
+    habits.forEach((habit, index) => {
+      const li = document.createElement('li');
+      const container = document.createElement('div');
+  
+      const name = document.createElement('strong');
+      name.textContent = habit.name;
+  
+      const btn = document.createElement('button');
+      btn.textContent = habit.completions.includes(today()) ? '✓ Done' : 'Mark Done';
+      btn.disabled = habit.completions.includes(today());
+  
+      btn.onclick = () => {
+        habit.completions.push(today());
+        habit.completions = [...new Set(habit.completions)]; // unique dates
+        saveHabits();
+        renderHabits();
+      };
+
+      container.appendChild(name);
+      container.appendChild(btn);
+      li.appendChild(container);
+      li.appendChild(renderCalendar(habit.completions));
+      habitList.appendChild(li);
+    });
+  }
+  
+    habitForm.onsubmit = (e) => {
+        e.preventDefault();
+        const newHabit = {
+        name: habitInput.value.trim(),
+        completions: [],
+        };
+        habits.push(newHabit);
+        saveHabits();
+        renderHabits();
+        habitForm.reset();
+    };
+    
+
+    
+
+renderHabits();
+displayQuote();
+applySavedTheme();
